@@ -1,0 +1,16 @@
+name: iapetus_meta
+description: Tools to help with package:iapetus development, including JSON API message analysis and code generation APIs.
+version: 0.1.0
+homepage: https://github.com/EpimetheusMusicPlayer/iapetus_meta
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  code_builder: ^4.1.0
+  iapetus:
+    path: ../iapetus
+  json_annotation: ^4.5.0
+
+dev_dependencies:
+  lint: ^1.8.2
