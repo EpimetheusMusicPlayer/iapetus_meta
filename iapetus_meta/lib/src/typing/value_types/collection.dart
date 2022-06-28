@@ -1,4 +1,3 @@
-import 'package:iapetus_meta/src/typing/value_types/native.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
 abstract class CollectionValueType<T, D> implements ValueType<T, D> {}
@@ -58,13 +57,13 @@ class TypedJsonObjectValueType<J, D>
       };
 }
 
-class TypedJsonMapValueType<J, D>
-    extends ComplexJsonObjectValueType<Map<String, D>> {
-  final ValueType<String, String> keyValueType;
+class TypedJsonMapValueType<K, J, D>
+    extends ComplexJsonObjectValueType<Map<K, D>> {
+  final ValueType<String, K> keyValueType;
   final ValueType<J, D> valueValueType;
 
   const TypedJsonMapValueType({
-    this.keyValueType = const StringValueType(optional: false),
+    required this.keyValueType,
     required this.valueValueType,
     required super.optional,
     super.defaultValue,
@@ -74,7 +73,7 @@ class TypedJsonMapValueType<J, D>
   String get name => 'Map<${keyValueType.name}, ${valueValueType.name}>';
 
   @override
-  TypedJsonMapValueType<J, D> asOptional({bool optional = true}) =>
+  TypedJsonMapValueType<K, J, D> asOptional({bool optional = true}) =>
       TypedJsonMapValueType(
         keyValueType: keyValueType,
         valueValueType: valueValueType,
@@ -83,14 +82,19 @@ class TypedJsonMapValueType<J, D>
       );
 
   @override
-  Map<String, D> mandatoryFromJson(Map<String, dynamic> json) => json.map(
-        (key, value) =>
-            MapEntry(key, valueValueType.convertFromJson(value as J) as D),
+  Map<K, D> mandatoryFromJson(Map<String, dynamic> json) => json.map(
+        (key, value) => MapEntry(
+          keyValueType.convertFromJson(key) as K,
+          valueValueType.convertFromJson(value as J) as D,
+        ),
       );
 
   @override
-  Map<String, J> mandatoryToJson(Map<String, D> map) => map.map(
-        (key, value) => MapEntry(key, valueValueType.convertToJson(value) as J),
+  Map<String, J> mandatoryToJson(Map<K, D> map) => map.map(
+        (key, value) => MapEntry(
+          keyValueType.convertToJson(key)!,
+          valueValueType.convertToJson(value) as J,
+        ),
       );
 
   @override

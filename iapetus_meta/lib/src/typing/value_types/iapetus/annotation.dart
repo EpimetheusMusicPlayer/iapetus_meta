@@ -18,8 +18,8 @@ class AnnotationValueType extends IapetusEntityValueType<MediaAnnotation> {
   Map<String, dynamic> mandatoryToJson(MediaAnnotation value) => value.toJson();
 }
 
-class AnnotationMapValueType
-    extends TypedJsonMapValueType<Map<String, Object?>, MediaAnnotation> {
+class AnnotationMapValueType extends TypedJsonMapValueType<String,
+    Map<String, Object?>, MediaAnnotation> {
   AnnotationMapValueType({required super.optional, super.defaultValue})
       : super(
           keyValueType: const PandoraIdValueType(optional: false),

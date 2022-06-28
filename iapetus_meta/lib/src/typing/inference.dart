@@ -70,6 +70,7 @@ ValueType estimateJsonFieldValueType(
       // If the map is empty, it's more likely to be an empty JSON map than a
       // JSON object with no fields, so treat it as such.
       return const TypedJsonMapValueType(
+        keyValueType: StringValueType(optional: false),
         valueValueType: UnknownValueType(optional: true),
         optional: false,
       );
@@ -77,7 +78,7 @@ ValueType estimateJsonFieldValueType(
 
     // Determine whether the non-empty map is a (specialised) JSON map or not.
     final keyValueType =
-        estimateValueTypes(value.keys) as ValueType<String, String>;
+        estimateValueTypes(value.keys) as ValueType<String, dynamic>;
     if (key != null && likelyAnnotationMap(key, keyValueType)) {
       return AnnotationMapValueType(optional: false);
     } else if (keyValueType != const StringValueType(optional: false)) {
