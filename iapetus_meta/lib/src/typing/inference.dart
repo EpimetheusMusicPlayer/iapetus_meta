@@ -53,11 +53,12 @@ ValueType estimateJsonFieldValueType(
     }
     return const StringValueType(optional: false);
   } else if (value is num) {
+    if (value is int) {
+      return const IntegerValueType(optional: false);
+    } else if (value is double) {
+      return const DoubleValueType(optional: false);
+    }
     return const NumberValueType(optional: false);
-  } else if (value is int) {
-    return const IntegerValueType(optional: false);
-  } else if (value is double) {
-    return const DoubleValueType(optional: false);
   } else if (value is bool) {
     return const BooleanValueType(optional: false);
   } else if (value is List) {
