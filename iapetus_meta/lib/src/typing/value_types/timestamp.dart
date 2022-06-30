@@ -39,7 +39,7 @@ abstract class EpochTimestampValueType extends TimestampValueType<int> {
   const EpochTimestampValueType({required super.optional, super.defaultValue});
 
   @override
-  String get name => 'Epoch timestamp';
+  String get name => '${super.name}<Epoch';
 }
 
 class MicrosecondTimestampValueType extends EpochTimestampValueType {
@@ -49,7 +49,7 @@ class MicrosecondTimestampValueType extends EpochTimestampValueType {
   });
 
   @override
-  String get name => '${super.name}<Microseconds>';
+  String get name => '${super.name}<Microseconds>>';
 
   @override
   MicrosecondTimestampValueType asOptional({bool optional = true}) =>
@@ -81,7 +81,7 @@ class MillisecondTimestampValueType extends EpochTimestampValueType {
   });
 
   @override
-  String get name => '${super.name}<Milliseconds>';
+  String get name => '${super.name}<Milliseconds>>';
 
   @override
   MillisecondTimestampValueType asOptional({bool optional = true}) =>
@@ -110,7 +110,7 @@ class SecondTimestampValueType extends EpochTimestampValueType {
   const SecondTimestampValueType({required super.optional, super.defaultValue});
 
   @override
-  String get name => '${super.name}<Seconds>';
+  String get name => '${super.name}<Seconds>>';
 
   @override
   SecondTimestampValueType asOptional({bool optional = true}) =>
