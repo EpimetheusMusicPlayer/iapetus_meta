@@ -125,7 +125,7 @@ ValueType generalizeValueTypes(List<ValueType> valueTypes) {
 
   // If there's only one value type to generalize, use it.
   if (relevantValueTypes.length == 1) {
-    return valueTypes.first.asOptional(optional: optional);
+    return relevantValueTypes.first.asOptional(optional: optional);
   }
 
   /// Generalize the given value types by matching them with common base types.
