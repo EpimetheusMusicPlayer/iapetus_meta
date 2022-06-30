@@ -1,4 +1,5 @@
 export 'src/typing/inference.dart';
+export 'src/typing/utils/flattening.dart';
 export 'src/typing/value_types/can_be_empty_string.dart';
 export 'src/typing/value_types/collection.dart';
 export 'src/typing/value_types/iapetus/annotation.dart';
