@@ -1,4 +1,3 @@
-import 'package:iapetus_meta/src/typing/value_types/collection.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
 class NativeValueType<T> extends ComplexValueType<T, T> {
@@ -91,33 +90,3 @@ class BooleanValueType extends NativeValueType<bool> {
   BooleanValueType asOptional({bool optional = true}) =>
       BooleanValueType(optional: optional, defaultValue: defaultValue);
 }
-
-// class GenericListValueType extends NativeValueType<List<dynamic>>
-//     implements ListValueType<List<dynamic>> {
-//   const GenericListValueType({required super.optional, super.defaultValue});
-//
-//   @override
-//   String get name => 'List';
-//
-//   @override
-//   GenericListValueType asOptional({bool optional = true}) =>
-//       GenericListValueType(optional: optional, defaultValue: defaultValue);
-// }
-//
-// class GenericJsonObjectValueType extends NativeValueType<Map<String, dynamic>>
-//     implements JsonObjectValueType<Map<String, dynamic>> {
-//   const GenericJsonObjectValueType({
-//     required super.optional,
-//     super.defaultValue,
-//   });
-//
-//   @override
-//   String get name => 'JSON object';
-//
-//   @override
-//   GenericJsonObjectValueType asOptional({bool optional = true}) =>
-//       GenericJsonObjectValueType(
-//         optional: optional,
-//         defaultValue: defaultValue,
-//       );
-// }
