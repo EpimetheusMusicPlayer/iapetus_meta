@@ -290,3 +290,13 @@ ValueType generalizeValueTypes(List<ValueType> valueTypes) {
   // in the list of value types to generalize.
   return NativeValueType(optional: optional);
 }
+
+extension InferenceExtensions on ValueType {
+  ValueType operator +(dynamic other) => generalizeValueTypes([
+        this,
+        if (other is ValueType)
+          other
+        else
+          estimateJsonFieldValueType(null, other),
+      ]);
+}
