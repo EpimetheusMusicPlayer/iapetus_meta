@@ -212,7 +212,7 @@ ValueType generalizeValueTypes(List<ValueType> valueTypes) {
                 .cast<TypedJsonMapValueType>()
                 .map((valueType) => valueType.keyValueType)
                 .toList(growable: false),
-          ) as StringValueType,
+          ) as ValueType<String, dynamic>,
           valueValueType: generalizeValueTypes(
             relevantValueTypes
                 .cast<TypedJsonMapValueType>()
