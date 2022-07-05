@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
 class NativeValueType<T> extends ComplexValueType<T, T> {
@@ -15,6 +16,13 @@ class NativeValueType<T> extends ComplexValueType<T, T> {
 
   @override
   T mandatoryToJson(T value) => value;
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'Object'
+          ..url = 'dart:core',
+      );
 }
 
 /// A [ValueType] representing an unknown value.
@@ -34,6 +42,10 @@ class UnknownValueType extends NativeValueType<dynamic> {
   @override
   UnknownValueType asOptional({bool optional = true}) =>
       UnknownValueType(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference =>
+      buildDartTypeReference((b) => b..symbol = 'dynamic');
 }
 
 class StringValueType extends NativeValueType<String> {
@@ -45,6 +57,13 @@ class StringValueType extends NativeValueType<String> {
   @override
   StringValueType asOptional({bool optional = true}) =>
       StringValueType(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'String'
+          ..url = 'dart:core',
+      );
 }
 
 class NumberValueType<T extends num> extends NativeValueType<T> {
@@ -56,6 +75,13 @@ class NumberValueType<T extends num> extends NativeValueType<T> {
   @override
   NumberValueType<T> asOptional({bool optional = true}) =>
       NumberValueType<T>(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'num'
+          ..url = 'dart:core',
+      );
 }
 
 class IntegerValueType extends NumberValueType<int> {
@@ -67,6 +93,13 @@ class IntegerValueType extends NumberValueType<int> {
   @override
   IntegerValueType asOptional({bool optional = true}) =>
       IntegerValueType(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'int'
+          ..url = 'dart:core',
+      );
 }
 
 class DoubleValueType extends NumberValueType<double> {
@@ -78,6 +111,13 @@ class DoubleValueType extends NumberValueType<double> {
   @override
   DoubleValueType asOptional({bool optional = true}) =>
       DoubleValueType(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'double'
+          ..url = 'dart:core',
+      );
 }
 
 class BooleanValueType extends NativeValueType<bool> {
@@ -89,4 +129,11 @@ class BooleanValueType extends NativeValueType<bool> {
   @override
   BooleanValueType asOptional({bool optional = true}) =>
       BooleanValueType(optional: optional, defaultValue: defaultValue);
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'bool'
+          ..url = 'dart:core',
+      );
 }

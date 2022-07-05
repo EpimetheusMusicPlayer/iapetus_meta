@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:iapetus/iapetus.dart';
 import 'package:iapetus_meta/src/typing/value_types/collection.dart';
 import 'package:iapetus_meta/src/typing/value_types/iapetus/iapetus_value_type.dart';
@@ -16,6 +17,13 @@ class AnnotationValueType extends IapetusEntityValueType<MediaAnnotation> {
 
   @override
   Map<String, dynamic> mandatoryToJson(MediaAnnotation value) => value.toJson();
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'MediaAnnotation'
+          ..url = 'package:iapetus/src/media/entities/annotation.dart',
+      );
 }
 
 class AnnotationMapValueType extends TypedJsonMapValueType<String,

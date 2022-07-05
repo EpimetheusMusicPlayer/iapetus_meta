@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
 abstract class CollectionValueType<T, D> implements ValueType<T, D> {}
@@ -55,6 +56,15 @@ class TypedJsonObjectValueType<J, D>
         'fields':
             fieldValueTypes.map((key, value) => MapEntry(key, value.toJson())),
       };
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'Map'
+          ..url = 'dart:core'
+          ..types.add(const Reference('String', 'dart:core'))
+          ..types.add(const Reference('dynamic')),
+      );
 }
 
 class TypedJsonMapValueType<K, J, D>
@@ -103,6 +113,15 @@ class TypedJsonMapValueType<K, J, D>
         'keyType': keyValueType.toJson(),
         'valueType': valueValueType.toJson(),
       };
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'Map'
+          ..url = 'dart:core'
+          ..types.add(keyValueType.dartTypeReference)
+          ..types.add(valueValueType.dartTypeReference),
+      );
 }
 
 abstract class ListValueType<D>
@@ -151,4 +170,12 @@ class TypedListValueType<J, D> extends ComplexListValueType<List<D>> {
         ...super.toJson(),
         'elementType': elementValueType.toJson(),
       };
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'List'
+          ..url = 'dart:core'
+          ..types.add(elementValueType.dartTypeReference),
+      );
 }

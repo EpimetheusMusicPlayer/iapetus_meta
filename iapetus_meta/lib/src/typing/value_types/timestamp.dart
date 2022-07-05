@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:iapetus/iapetus_data.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
@@ -6,6 +7,13 @@ abstract class TimestampValueType<J> extends ComplexValueType<J, DateTime> {
 
   @override
   String get name => 'Timestamp';
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'DateTime'
+          ..url = 'dart:core',
+      );
 }
 
 class DateValueType extends TimestampValueType<String> {

@@ -1,3 +1,6 @@
+import 'package:code_builder/code_builder.dart';
+import 'package:meta/meta.dart';
+
 abstract class ValueType<J, D> {
   const ValueType();
 
@@ -12,6 +15,8 @@ abstract class ValueType<J, D> {
   D? convertFromJson(J? value);
 
   J? convertToJson(D? value);
+
+  Reference get dartTypeReference;
 
   Map<String, dynamic> toJson() => {
         'type': name,
@@ -46,6 +51,15 @@ abstract class ComplexValueType<J, D> extends ValueType<J, D> {
   @override
   J? convertToJson(D? value) =>
       optional ? optionalToJson(value) : mandatoryToJson(value as D);
+
+  @protected
+  TypeReference buildDartTypeReference(
+    void Function(TypeReferenceBuilder) updates,
+  ) =>
+      TypeReference((b) {
+        b.isNullable = optional;
+        b.update(updates);
+      });
 
   @override
   bool operator ==(Object other) =>

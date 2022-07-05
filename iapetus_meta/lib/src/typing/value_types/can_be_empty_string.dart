@@ -1,3 +1,4 @@
+import 'package:code_builder/code_builder.dart';
 import 'package:iapetus/iapetus_data.dart';
 import 'package:iapetus_meta/src/typing/value_types/value_type.dart';
 
@@ -26,4 +27,11 @@ class CanBeEmptyStringValueType extends ComplexValueType<String, String?> {
 
   @override
   String? optionalToJson(String? value) => value;
+
+  @override
+  Reference get dartTypeReference => buildDartTypeReference(
+        (b) => b
+          ..symbol = 'String'
+          ..url = 'dart:core',
+      );
 }
