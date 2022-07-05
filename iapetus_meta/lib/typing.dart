@@ -1,3 +1,4 @@
+export 'src/typing/code_gen.dart';
 export 'src/typing/inference.dart';
 export 'src/typing/utils/flattening.dart';
 export 'src/typing/value_types/can_be_empty_string.dart';
