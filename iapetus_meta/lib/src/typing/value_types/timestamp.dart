@@ -9,11 +9,9 @@ abstract class TimestampValueType<J> extends ComplexValueType<J, DateTime> {
   String get name => 'Timestamp';
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'DateTime'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'DateTime'
+    ..url = 'dart:core';
 }
 
 class DateValueType extends TimestampValueType<String> {
@@ -41,6 +39,30 @@ class DateValueType extends TimestampValueType<String> {
   @override
   String? optionalToJson(DateTime? dateTime) =>
       writeOptionalDateTimeDateString(dateTime);
+
+  @override
+  Reference get mandatoryFromJsonFunctionReference => const Reference(
+        'readDateTimeDateString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalFromJsonFunctionReference => const Reference(
+        'readOptionalDateTimeDateString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get mandatoryToJsonFunctionReference => const Reference(
+        'writeDateTimeDateString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalToJsonFunctionReference => const Reference(
+        'writeOptionalDateTimeDateString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
 }
 
 abstract class EpochTimestampValueType extends TimestampValueType<int> {
@@ -80,6 +102,30 @@ class MicrosecondTimestampValueType extends EpochTimestampValueType {
   @override
   int? optionalToJson(DateTime? dateTime) =>
       writeOptionalDateTimeMicroseconds(dateTime);
+
+  @override
+  Reference get mandatoryFromJsonFunctionReference => const Reference(
+        'readDateTimeMicroseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalFromJsonFunctionReference => const Reference(
+        'readOptionalDateTimeMicroseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get mandatoryToJsonFunctionReference => const Reference(
+        'writeDateTimeMicroseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalToJsonFunctionReference => const Reference(
+        'writeOptionalDateTimeMicroseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
 }
 
 class MillisecondTimestampValueType extends EpochTimestampValueType {
@@ -112,6 +158,30 @@ class MillisecondTimestampValueType extends EpochTimestampValueType {
   @override
   int? optionalToJson(DateTime? dateTime) =>
       writeOptionalDateTimeMilliseconds(dateTime);
+
+  @override
+  Reference get mandatoryFromJsonFunctionReference => const Reference(
+        'readDateTimeMilliseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalFromJsonFunctionReference => const Reference(
+        'readOptionalDateTimeMilliseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get mandatoryToJsonFunctionReference => const Reference(
+        'writeDateTimeMilliseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalToJsonFunctionReference => const Reference(
+        'writeOptionalDateTimeMilliseconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
 }
 
 class SecondTimestampValueType extends EpochTimestampValueType {
@@ -137,4 +207,28 @@ class SecondTimestampValueType extends EpochTimestampValueType {
   @override
   int? optionalToJson(DateTime? dateTime) =>
       writeOptionalDateTimeSeconds(dateTime);
+
+  @override
+  Reference get mandatoryFromJsonFunctionReference => const Reference(
+        'readDateTimeSeconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalFromJsonFunctionReference => const Reference(
+        'readOptionalDateTimeSeconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get mandatoryToJsonFunctionReference => const Reference(
+        'writeDateTimeSeconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference get optionalToJsonFunctionReference => const Reference(
+        'writeOptionalDateTimeSeconds',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
 }

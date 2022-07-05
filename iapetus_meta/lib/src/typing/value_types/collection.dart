@@ -16,6 +16,18 @@ abstract class ComplexJsonObjectValueType<D>
 
   @override
   String get name => 'JSON object';
+
+  @override
+  Reference? get mandatoryFromJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalFromJsonFunctionReference => null;
+
+  @override
+  Reference? get mandatoryToJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalToJsonFunctionReference => null;
 }
 
 class TypedJsonObjectValueType<J, D>
@@ -58,13 +70,11 @@ class TypedJsonObjectValueType<J, D>
       };
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'Map'
-          ..url = 'dart:core'
-          ..types.add(const Reference('String', 'dart:core'))
-          ..types.add(const Reference('dynamic')),
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'Map'
+    ..url = 'dart:core'
+    ..types.add(const Reference('String', 'dart:core'))
+    ..types.add(const Reference('dynamic'));
 }
 
 class TypedJsonMapValueType<K, J, D>
@@ -115,13 +125,11 @@ class TypedJsonMapValueType<K, J, D>
       };
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'Map'
-          ..url = 'dart:core'
-          ..types.add(keyValueType.dartTypeReference)
-          ..types.add(valueValueType.dartTypeReference),
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'Map'
+    ..url = 'dart:core'
+    ..types.add(keyValueType.dartTypeReference)
+    ..types.add(valueValueType.dartTypeReference);
 }
 
 abstract class ListValueType<D>
@@ -133,6 +141,18 @@ abstract class ComplexListValueType<D>
 
   @override
   String get name => 'List';
+
+  @override
+  Reference? get mandatoryFromJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalFromJsonFunctionReference => null;
+
+  @override
+  Reference? get mandatoryToJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalToJsonFunctionReference => null;
 }
 
 class TypedListValueType<J, D> extends ComplexListValueType<List<D>> {
@@ -172,10 +192,8 @@ class TypedListValueType<J, D> extends ComplexListValueType<List<D>> {
       };
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'List'
-          ..url = 'dart:core'
-          ..types.add(elementValueType.dartTypeReference),
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'List'
+    ..url = 'dart:core'
+    ..types.add(elementValueType.dartTypeReference);
 }

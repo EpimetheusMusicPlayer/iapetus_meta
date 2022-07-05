@@ -19,11 +19,9 @@ class AnnotationValueType extends IapetusEntityValueType<MediaAnnotation> {
   Map<String, dynamic> mandatoryToJson(MediaAnnotation value) => value.toJson();
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'MediaAnnotation'
-          ..url = 'package:iapetus/src/media/entities/annotation.dart',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'MediaAnnotation'
+    ..url = 'package:iapetus/src/media/entities/annotation.dart';
 }
 
 class AnnotationMapValueType extends TypedJsonMapValueType<String,

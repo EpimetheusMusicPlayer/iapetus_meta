@@ -18,11 +18,21 @@ class NativeValueType<T> extends ComplexValueType<T, T> {
   T mandatoryToJson(T value) => value;
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'Object'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'Object'
+    ..url = 'dart:core';
+
+  @override
+  Reference? get mandatoryFromJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalFromJsonFunctionReference => null;
+
+  @override
+  Reference? get mandatoryToJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalToJsonFunctionReference => null;
 }
 
 /// A [ValueType] representing an unknown value.
@@ -44,8 +54,7 @@ class UnknownValueType extends NativeValueType<dynamic> {
       UnknownValueType(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference =>
-      buildDartTypeReference((b) => b..symbol = 'dynamic');
+  void updateDartTypeReference(TypeReferenceBuilder b) => b..symbol = 'dynamic';
 }
 
 class StringValueType extends NativeValueType<String> {
@@ -59,11 +68,9 @@ class StringValueType extends NativeValueType<String> {
       StringValueType(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'String'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'String'
+    ..url = 'dart:core';
 }
 
 class NumberValueType<T extends num> extends NativeValueType<T> {
@@ -77,11 +84,9 @@ class NumberValueType<T extends num> extends NativeValueType<T> {
       NumberValueType<T>(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'num'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'num'
+    ..url = 'dart:core';
 }
 
 class IntegerValueType extends NumberValueType<int> {
@@ -95,11 +100,9 @@ class IntegerValueType extends NumberValueType<int> {
       IntegerValueType(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'int'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'int'
+    ..url = 'dart:core';
 }
 
 class DoubleValueType extends NumberValueType<double> {
@@ -113,11 +116,9 @@ class DoubleValueType extends NumberValueType<double> {
       DoubleValueType(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'double'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'double'
+    ..url = 'dart:core';
 }
 
 class BooleanValueType extends NativeValueType<bool> {
@@ -131,9 +132,7 @@ class BooleanValueType extends NativeValueType<bool> {
       BooleanValueType(optional: optional, defaultValue: defaultValue);
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'bool'
-          ..url = 'dart:core',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'bool'
+    ..url = 'dart:core';
 }

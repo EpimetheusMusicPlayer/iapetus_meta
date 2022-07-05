@@ -14,13 +14,6 @@ class PandoraIdValueType extends StringValueType {
   @override
   PandoraIdValueType asOptional({bool optional = true}) =>
       PandoraIdValueType(optional: optional, defaultValue: defaultValue);
-
-  @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'String'
-          ..url = 'dart:core',
-      );
 }
 
 class PandoraTypeValueType extends ComplexValueType<String, PandoraType> {
@@ -41,9 +34,19 @@ class PandoraTypeValueType extends ComplexValueType<String, PandoraType> {
   String mandatoryToJson(PandoraType value) => pandoraTypeEnumMap[value]!;
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'PandoraType'
-          ..url = 'package:iapetus/src/common/entities/pandora_type.dart',
-      );
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'PandoraType'
+    ..url = 'package:iapetus/src/common/entities/pandora_type.dart';
+
+  @override
+  Reference? get mandatoryFromJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalFromJsonFunctionReference => null;
+
+  @override
+  Reference? get mandatoryToJsonFunctionReference => null;
+
+  @override
+  Reference? get optionalToJsonFunctionReference => null;
 }

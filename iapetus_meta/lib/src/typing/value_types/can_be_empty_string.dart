@@ -29,9 +29,31 @@ class CanBeEmptyStringValueType extends ComplexValueType<String, String?> {
   String? optionalToJson(String? value) => value;
 
   @override
-  Reference get dartTypeReference => buildDartTypeReference(
-        (b) => b
-          ..symbol = 'String'
-          ..url = 'dart:core',
+  void updateDartTypeReference(TypeReferenceBuilder b) => b
+    ..symbol = 'String'
+    ..url = 'dart:core';
+
+  @override
+  Reference? get mandatoryFromJsonFunctionReference => const Reference(
+        'readOptionallyEmptyString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference? get optionalFromJsonFunctionReference => const Reference(
+        'readOptionalOptionallyEmptyString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference? get mandatoryToJsonFunctionReference => const Reference(
+        'writeOptionallyEmptyString',
+        'package:iapetus/src/common/data/json_utils.dart',
+      );
+
+  @override
+  Reference? get optionalToJsonFunctionReference => const Reference(
+        'writeOptionallyEmptyString',
+        'package:iapetus/src/common/data/json_utils.dart',
       );
 }

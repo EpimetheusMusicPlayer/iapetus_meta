@@ -18,6 +18,10 @@ abstract class ValueType<J, D> {
 
   Reference get dartTypeReference;
 
+  Reference? get fromJsonFunctionReference;
+
+  Reference? get toJsonFunctionReference;
+
   Map<String, dynamic> toJson() => {
         'type': name,
         'optional': optional,
@@ -53,13 +57,32 @@ abstract class ComplexValueType<J, D> extends ValueType<J, D> {
       optional ? optionalToJson(value) : mandatoryToJson(value as D);
 
   @protected
-  TypeReference buildDartTypeReference(
-    void Function(TypeReferenceBuilder) updates,
-  ) =>
-      TypeReference((b) {
-        b.isNullable = optional;
-        b.update(updates);
-      });
+  void updateDartTypeReference(TypeReferenceBuilder b);
+
+  Reference? get mandatoryFromJsonFunctionReference;
+
+  Reference? get optionalFromJsonFunctionReference;
+
+  Reference? get mandatoryToJsonFunctionReference;
+
+  Reference? get optionalToJsonFunctionReference;
+
+  @override
+  Reference? get fromJsonFunctionReference => optional
+      ? optionalFromJsonFunctionReference
+      : mandatoryFromJsonFunctionReference;
+
+  @override
+  Reference? get toJsonFunctionReference => optional
+      ? optionalToJsonFunctionReference
+      : mandatoryToJsonFunctionReference;
+
+  @override
+  Reference get dartTypeReference => TypeReference(
+        (b) => b
+          ..isNullable = optional
+          ..update(updateDartTypeReference),
+      );
 
   @override
   bool operator ==(Object other) =>
