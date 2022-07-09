@@ -72,17 +72,52 @@ extension ObjectValueTypeCodeGen on TypedJsonObjectValueType {
 }
 
 extension FieldValueTypeCodeGen on ValueType {
-  Parameter buildParameter(String name) {
-    final parameterName = name.camelCase;
+  static Reference _computeReference(String fieldName, ValueType valueType) {
+    if (valueType is CollectionValueType) {
+      if (valueType is TypedJsonObjectValueType) {
+        return TypeReference(
+          (b) => b
+            ..isNullable = valueType.optional
+            ..symbol = fieldName.pascalCase,
+        );
+      } else if (valueType is TypedListValueType) {
+        return TypeReference(
+          (b) => b
+            ..isNullable = valueType.optional
+            ..symbol = 'List'
+            ..types
+                .add(_computeReference(fieldName, valueType.elementValueType)),
+        );
+      } else if (valueType is TypedJsonMapValueType) {
+        return TypeReference(
+          (b) => b
+            ..isNullable = valueType.optional
+            ..symbol = 'Map'
+            ..types.add(_computeReference(fieldName, valueType.keyValueType))
+            ..types.add(_computeReference(fieldName, valueType.valueValueType)),
+        );
+      }
+    }
+
+    return valueType.dartTypeReference;
+  }
+
+  Reference computeReference(String fieldName) =>
+      _computeReference(fieldName, this);
+
+  Parameter buildParameter(String fieldName) {
+    final parameterName = fieldName.camelCase;
     return Parameter(
       (b) => b
         ..annotations.add(
           InvokeExpression.newOf(
-            const Reference('JsonKey',
-                'package:freezed_annotation/freezed_annotation.dart'),
+            const Reference(
+              'JsonKey',
+              'package:freezed_annotation/freezed_annotation.dart',
+            ),
             const [],
             ({
-              'name': literalString(name),
+              'name': literalString(fieldName),
               'fromJson': fromJsonFunctionReference?.expression,
               'toJson': toJsonFunctionReference?.expression,
             }..removeWhere((key, value) => value == null))
@@ -92,16 +127,10 @@ extension FieldValueTypeCodeGen on ValueType {
         ..named = true
         ..required = !optional
         ..name = parameterName
-        ..type = this is TypedJsonObjectValueType
-            ? TypeReference(
-                (b) => b
-                  ..isNullable = optional
-                  ..symbol = name.pascalCase,
-              )
-            : dartTypeReference,
+        ..type = computeReference(fieldName),
     );
   }
-  // TODO: Add default value annotations
+// TODO: Add default value annotations
 }
 
 extension LibraryCodeRendering on Library {
