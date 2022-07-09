@@ -3,6 +3,8 @@ description: Tools to help with package:iapetus development, including JSON API 
 version: 0.1.0
 homepage: https://github.com/EpimetheusMusicPlayer/iapetus_meta
 
+publish_to: none
+
 environment:
   sdk: '>=2.17.0 <3.0.0'
 
