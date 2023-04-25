@@ -11,6 +11,8 @@ jobs:
         working-directory: iapetus_meta
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
       - uses: dart-lang/setup-dart@v1
       - run: dart pub get
       - run: dart doc
