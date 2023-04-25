@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: iapetus_meta
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
@@ -13,7 +16,7 @@ jobs:
       - run: dart doc
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: doc/api
+          path: iapetus_meta/doc/api
 
   deploy:
     needs: build
